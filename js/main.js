@@ -107,6 +107,9 @@ function loadAdminDashboard() {
       orderList.innerHTML = orders.map(o => `<li>${o}</li>`).join("");
     }
   }
+
+  // Display machineries when admin page loads
+  displayMachineries();
 }
 
 // ===== CONTACT FORM =====
@@ -119,3 +122,41 @@ document.getElementById("contactForm")?.addEventListener("submit", function(e) {
 
   alert(`📩 Message sent!\n\nFrom: ${name}\nEmail: ${email}\nMessage: ${message}`);
 });
+
+// ===== MACHINERY UPLOAD =====
+document.getElementById("uploadForm")?.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("machineryName").value;
+  const fileInput = document.getElementById("machineryImage");
+  const fileName = fileInput.value.split("\\").pop(); // extract filename
+
+  let machineries = JSON.parse(localStorage.getItem("machineries")) || [];
+  machineries.push({
+    name,
+    image: `../assets/images/${fileName}` // assumes admin manually placed images in repo
+  });
+  localStorage.setItem("machineries", JSON.stringify(machineries));
+
+  alert("✅ Machinery added!");
+  displayMachineries();
+
+  // reset form
+  document.getElementById("uploadForm").reset();
+});
+
+// ===== DISPLAY MACHINERY GALLERY =====
+function displayMachineries() {
+  let gallery = document.getElementById("machineryGallery");
+  if (!gallery) return;
+
+  let machineries = JSON.parse(localStorage.getItem("machineries")) || [];
+  gallery.innerHTML = machineries.map(
+    m => `
+      <div class="machinery-item">
+        <img src="${m.image}" alt="${m.name}" width="200">
+        <p>${m.name}</p>
+      </div>
+    `
+  ).join("");
+}

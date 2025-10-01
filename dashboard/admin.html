@@ -17,14 +17,29 @@
   </header>
 
   <main>
+    <!-- Registered Users -->
     <section>
       <h2>Registered Users</h2>
       <ul id="userList"></ul>
     </section>
 
+    <!-- Customer Orders -->
     <section>
       <h2>Customer Orders</h2>
       <ul id="orderList"></ul>
+    </section>
+
+    <!-- Upload Machinery -->
+    <section>
+      <h2>Upload Machinery</h2>
+      <form id="uploadForm">
+        <input type="file" id="machineryImage" accept="image/*" required>
+        <input type="text" id="machineryName" placeholder="Machinery Name" required>
+        <button type="submit">Upload</button>
+      </form>
+
+      <h3>Uploaded Machineries</h3>
+      <div id="machineryGallery"></div>
     </section>
   </main>
 
